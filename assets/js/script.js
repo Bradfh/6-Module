@@ -32,13 +32,27 @@ $(document).ready(function () {
   //display past searches on page load
   function saveAndDisplaySearch(input) {
     const cityName = input.value;
+    const maxSearches = 6;
+
     if (!cityName || !isNaN(cityName)) {
       console.log('Invalid city name');
       return;
     }
+    if (localStorage.length >= maxSearches) {
+      // Remove the oldest search
+      const oldestSearchKey = localStorage.key(0);
+      localStorage.removeItem(oldestSearchKey);
+
+      // Remove the corresponding button from the UI
+      const buttonToRemove = document.querySelector(`button[data-city-name="${oldestSearchKey}"]`);
+      buttonToRemove.remove();
+    }
+
     localStorage.setItem(cityName, cityName);
     displaySearchButton(cityName);
   }
+
+  
 
   // create buttons based on search input
   function displaySearchButton(cityName) {
@@ -46,6 +60,7 @@ $(document).ready(function () {
     const searchButton = document.createElement("button");
     searchButton.textContent = cityName;
     searchButton.classList.add("btn", "btn-outline-secondary", "mb-2");
+    searchButton.setAttribute("data-city-name", cityName);
     searchButton.addEventListener("click", function () {
       fetchWeatherData(cityName);
 
@@ -54,6 +69,7 @@ $(document).ready(function () {
     });
     pastSearchContainer.appendChild(searchButton);
   }
+
 
 
   //event listener for button and input box
