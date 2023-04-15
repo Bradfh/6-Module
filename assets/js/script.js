@@ -32,7 +32,7 @@ $(document).ready(function () {
   //display past searches on page load
   function saveAndDisplaySearch(input) {
     const cityName = input.value;
-    if (!cityName || isNaN(cityName)) {
+    if (!cityName || !isNaN(cityName)) {
       console.log('Invalid city name');
       return;
     }
@@ -87,14 +87,6 @@ $(document).ready(function () {
       .then(function (response) {
         return response.json();
       })
-      .then(function (data){
-        if (data.cod === "404") {
-          const displayTitle = document.getElementById('display-title');
-          displayTitle.textContent = "City not found";
-          console.error("City not found");
-          return;
-        }
-      })
       .then(function (data) {
         console.log(data);
         const lat = data.coord.lat;
@@ -126,16 +118,16 @@ $(document).ready(function () {
         .then(function (data) {
           console.log(data);
 
-          const firstForecast = data.list[7];
+          // const firstForecast = data.list[7];
 
           var displayTitle = document.getElementById('forecast-title');
           var displayTemp = document.getElementById('forecast-temp');
           var displayWind = document.getElementById('forecast-wind');
           var displayHumidity = document.getElementById('forecast-humidity');
-          displayTitle.textContent = firstForecast.dt_txt;
-          displayTemp.textContent = firstForecast.main.temp;
-          displayWind.textContent = firstForecast.wind.speed;
-          displayHumidity.textContent = firstForecast.main.humidity;
+          displayTitle.textContent = forecast.time;
+          displayTemp.textContent = forecast.temperature.unit;
+          displayWind.textContent = forecast.windSpeed.unit;
+          displayHumidity.textContent = forecast.humidity.unit;
         });
     }
   }
