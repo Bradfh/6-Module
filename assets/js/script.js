@@ -97,7 +97,7 @@ $(document).ready(function () {
         var displayTemp = document.getElementById('display-temp');
         var displayWind = document.getElementById('display-wind');
         var displayHumidity = document.getElementById('display-humidity');
-        displayTitle.textContent = data.name + '   ' + data.dt;
+        displayTitle.textContent = data.name + '   ' + new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(data.dt * 1000));
         displayTemp.textContent = 'Temperature:  ' + data.main.temp + ' \u00B0F';
         displayWind.textContent = 'Wind:  ' + data.wind.speed + ' MPH';
         displayHumidity.textContent = 'Humidity:  ' + data.main.humidity + ' %';
@@ -106,28 +106,39 @@ $(document).ready(function () {
 
     function fetchForecast(lat, lon) {
       const apiKey = '7dfcee8991fd1edc7b57c5df746b672b';
-      const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+      const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`;
       console.log(forecastUrl);
 
       fetch(forecastUrl)
 
         .then(function (response) {
           return response.json();
-
         })
         .then(function (data) {
           console.log(data);
 
-          // const firstForecast = data.list[7];
+          for (let i = 0; i < data.list.length; i += 8) {
+            const forecast = data.list[i];
 
-          var displayTitle = document.getElementById('forecast-title');
-          var displayTemp = document.getElementById('forecast-temp');
-          var displayWind = document.getElementById('forecast-wind');
-          var displayHumidity = document.getElementById('forecast-humidity');
-          displayTitle.textContent = forecast.time;
-          displayTemp.textContent = forecast.temperature.unit;
-          displayWind.textContent = forecast.windSpeed.unit;
-          displayHumidity.textContent = forecast.humidity.unit;
+            var displayTitle = document.getElementById(`forecast-title-${i}`);
+            var displayIcon = document.getElementById(`forecast-icon-${i}`);
+            var displayTemp = document.getElementById(`forecast-temp-${i}`);
+            var displayWind = document.getElementById(`forecast-wind-${i}`);
+            var displayHumidity = document.getElementById(`forecast-humidity-${i}`);
+            const iconUrl = `https://openweathermap.org/img/wn/${forecast.weather[0].icon}.png`;
+
+            displayTitle.textContent = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(forecast.dt * 1000));
+            displayIcon.src = iconUrl;
+            displayTemp.textContent = `${forecast.main.temp_max} \u00B0F`;
+            displayWind.textContent = `Wind: ${forecast.wind.speed} MPH`;
+            displayHumidity.textContent = `Humidity: ${forecast.main.humidity}%`;
+
+
+
+          }
+
+
+
         });
     }
   }
