@@ -17,7 +17,7 @@
     <header class="text-center" id="app-header">
       <h1>Title</h1>
     </header>
-    <div class="container-fluid">
+    <div class="container-fluid row">
       <div class="col-sm-12 col-md-3 col-lg-3 d-flex flex-column align-items-center" id="search-container">
 
         <input type="text" class="form-control row col-12" id="cityNameInput" aria-label="Sizing example input"
@@ -28,12 +28,20 @@
       </div>
       <!-- !!! -->
     
-      <div class="col-sm-12 col-md-9 col-lg-9 d-flex align-items-start justify-content-center" id="data-container">
-        <div class="d-flex justify-content-start" id="weather-container">
-          <!-- <h2, p, p, p> possibly appended dynamically -->
+      <div class="col-sm-12 col-md-9 col-lg-9 align-items-start justify-content-center" id="data-container">
+        <div class="d-flex flex-column" id="weather-container">
+          <h3 id="display-title"></h3>
+          <p id="display-temp"></p>
+          <p id="display-wind"></p>
+          <p id="display-humidity"></p>
         </div>
-        <div class="d-flex justify-content-evenly" id="card-container">
-          <!-- <cards> possibly appended dynamically -->
+        <div class="d-flex justify-content-between d-flex flex-wrap" id="card-container">
+          <div class="card">
+            <h4 id="forecast-title"></h4>
+            <p id="forecast-temp"></p>
+            <p id="forecast-wind"></p>
+            <p id="forecast-humidity"></p>
+          </div>
         </div>
       </div>
     </div>
