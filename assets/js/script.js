@@ -25,7 +25,7 @@ $(document).ready(function () {
 
   //This function takes the search box input, saves it to local storage, and then calls the 
   //function that creates buttons based on past searches using the parameter that we set with 
-  //our cityName variable
+  //our cityName variable.  
   function saveAndDisplaySearch(input) {
     const cityName = input.value;
     const maxSearches = 6;
@@ -34,15 +34,15 @@ $(document).ready(function () {
       console.log('Invalid city name');
       return;
     }
-    if (localStorage.length >= maxSearches) {
+    // if (localStorage.length >= maxSearches) {
 
-      const oldestSearchKey = localStorage.key(0);
-      localStorage.removeItem(oldestSearchKey);
+    //   const oldestSearchKey = localStorage.key(0);
+    //   localStorage.removeItem(oldestSearchKey);
 
 
-      const buttonToRemove = document.querySelector(`button[data-city-name="${oldestSearchKey}"]`);
-      buttonToRemove.remove();
-    }
+    //   const buttonToRemove = document.querySelector(`button[data-city-name="${oldestSearchKey}"]`);
+    //   buttonToRemove.remove();
+    // }
 
     localStorage.setItem(cityName, cityName);
     displaySearchButton(cityName);
