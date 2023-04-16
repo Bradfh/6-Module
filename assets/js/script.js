@@ -1,33 +1,29 @@
-
-
-
-
 // TODO $(document).ready(function() {
-// !create function that pulls from local storage and populates the recent searches portion
-// !see if I can limit the number displayed previous searches to 6 or so
+// create function that pulls from local storage and populates the recent searches portion
+// see if I can limit the number displayed previous searches to 6 or so
 
-// !add event listener to search box and button that will talk to the API and populate the weather-container div
-// !use temperature, wind, humidity, and perhaps any other relevant information
+// add event listener to search box and button that will talk to the API and populate the weather-container div
+// use temperature, wind, humidity, and perhaps any other relevant information
 
 $(document).ready(function () {
 
 
   // Creates buttons based on past searches stored in local, then runs the create search button function
-  function displayPastSearches() {
-    const pastSearchKeys = [];
-    for (let i = 0; i < localStorage.length; i++) {
-      pastSearchKeys.push(localStorage.key(i));
-    }
-    pastSearchKeys.sort();
+  // function displayPastSearches() {
+  //   const pastSearchKeys = [];
+  //   for (let i = 0; i < localStorage.length; i++) {
+  //     pastSearchKeys.push(localStorage.key(i));
+  //   }
+  //   pastSearchKeys.sort();
 
-    const maxSearches = 6;
-    for (let i = 0; i < pastSearchKeys.length; i++) {
-      if (i >= maxSearches) {
-        break;
-      }
-      displaySearchButton(pastSearchKeys[i]);
-    }
-  }
+  //   const maxSearches = 6;
+  //   for (let i = 0; i < pastSearchKeys.length; i++) {
+  //     if (i >= maxSearches) {
+  //       break;
+  //     }
+  //     displaySearchButton(pastSearchKeys[i]);
+  //   }
+  // }
 
   //display past searches on page load
   function saveAndDisplaySearch(input) {
@@ -39,11 +35,11 @@ $(document).ready(function () {
       return;
     }
     if (localStorage.length >= maxSearches) {
-      
+
       const oldestSearchKey = localStorage.key(0);
       localStorage.removeItem(oldestSearchKey);
 
-      
+
       const buttonToRemove = document.querySelector(`button[data-city-name="${oldestSearchKey}"]`);
       buttonToRemove.remove();
     }
@@ -52,7 +48,7 @@ $(document).ready(function () {
     displaySearchButton(cityName);
   }
 
-  
+
 
   // create buttons based on search input
   function displaySearchButton(cityName) {
@@ -98,7 +94,7 @@ $(document).ready(function () {
   function fetchWeatherData(cityName) {
     const apiKey = '7dfcee8991fd1edc7b57c5df746b672b';
     const requestUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=imperial`;
-    
+
 
     fetch(requestUrl)/*  */
       .then(function (response) {
@@ -166,8 +162,10 @@ $(document).ready(function () {
         });
     }
   }
+  window.onload = function () {
+    localStorage.clear();
+    // displayPastSearches();
 
-  displayPastSearches();
-
-  ;
+    ;
+  }
 })
