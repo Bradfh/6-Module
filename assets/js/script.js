@@ -34,15 +34,15 @@ $(document).ready(function () {
       console.log('Invalid city name');
       return;
     }
-    // if (localStorage.length >= maxSearches) {
+    if (localStorage.length >= maxSearches) {
 
-    //   const oldestSearchKey = localStorage.key(0);
-    //   localStorage.removeItem(oldestSearchKey);
+      const oldestSearchKey = localStorage.key(0);
+      localStorage.removeItem(oldestSearchKey);
 
 
-    //   const buttonToRemove = document.querySelector(`button[data-city-name="${oldestSearchKey}"]`);
-    //   buttonToRemove.remove();
-    // }
+      const buttonToRemove = document.querySelector(`button[data-city-name="${oldestSearchKey}"]`);
+      buttonToRemove.remove();
+    }
 
     localStorage.setItem(cityName, cityName);
     displaySearchButton(cityName);
