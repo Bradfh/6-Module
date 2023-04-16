@@ -1,6 +1,111 @@
+:root {
+  --darkblue: #27255b;
+}
+
 * {
   box-sizing: border-box;
 }
+
+main * {
+  z-index: 1;
+}
+
+header {
+  margin: 0 3.3rem 1rem .8rem;
+  background-color: var(--darkblue);
+  border: 1px solid #ccc;
+}
+
+header, #search-container, #data-container {
+  /* background-color: rgb(10, 10, 84); */
+  opacity: .9;
+  padding: 1.5rem 1rem 1rem 1rem;
+  color: white;
+  border-radius: .5rem;
+}
+
+#search-container {
+  background-color: var(--darkblue);
+  border: 1px solid #ccc;
+}
+
+#search-container button {
+  margin-top: .5rem;
+}
+
+
+#weather-container {
+  min-height: 12vw;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, .1);
+  background-color: var(--darkblue);
+}
+
+#weather-container * {
+  padding-left: 1rem;
+}
+
+#weather-container h3 {
+  font-size: 2rem;
+  border-bottom: 1px solid grey;
+  padding: .5rem;
+}
+
+#weather-container p {
+  font-size: 1.3rem;
+}
+
+.card {
+  flex: 1;
+  max-width: 15rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin: 1.5rem .5rem .5rem .5rem;
+  padding: 1.6rem;
+  background-color: var(--darkblue);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+img[id*="forecast-icon"] {
+  width: 70px;
+  height: 70px;
+  
+}
+
+.card * {
+  text-align: left;
+  justify-content: center;
+}
+
+.card h4 {
+  font-size: 1.4rem;
+  border-bottom: 1px solid grey;
+  padding-bottom: 5px;
+
+}
+
+#past-search {
+  margin-top: 2rem;
+}
+
+#search-buttons {
+  border: 1px solid #ccc;
+  color: white;
+  min-width: 10rem;
+}
+
+#weather-icon {
+  float: right;
+  width: 8rem;
+  height: 7rem;
+}
+
+
+#data-container {
+  display: none;
+}
+
 
 /* TODO format header (bg-color, padding) */
 /* TODO format the container divs with proper spacing */
