@@ -39,11 +39,11 @@ $(document).ready(function () {
       return;
     }
     if (localStorage.length >= maxSearches) {
-      // Remove the oldest search
+      
       const oldestSearchKey = localStorage.key(0);
       localStorage.removeItem(oldestSearchKey);
 
-      // Remove the corresponding button from the UI
+      
       const buttonToRemove = document.querySelector(`button[data-city-name="${oldestSearchKey}"]`);
       buttonToRemove.remove();
     }
@@ -59,12 +59,11 @@ $(document).ready(function () {
     const pastSearchContainer = document.getElementById("past-search");
     const searchButton = document.createElement("button");
     searchButton.textContent = cityName;
-    searchButton.classList.add("btn", "btn-outline-secondary", "mb-2");
+    searchButton.classList.add("btn", "btn-outline-secondary", "mb-2", "btn-primary");
     searchButton.setAttribute("data-city-name", cityName);
+    searchButton.setAttribute('id', 'search-buttons');
     searchButton.addEventListener("click", function () {
       fetchWeatherData(cityName);
-
-
 
     });
     pastSearchContainer.appendChild(searchButton);
@@ -82,7 +81,7 @@ $(document).ready(function () {
     console.log(cityName);
     if (!cityName || !isNaN(cityName)) {
       console.log(cityNameInput);
-      console.log('Invalid city name'); //!
+      console.log('Invalid city name');
       return;
 
     }
@@ -97,9 +96,9 @@ $(document).ready(function () {
   function fetchWeatherData(cityName) {
     const apiKey = '7dfcee8991fd1edc7b57c5df746b672b';
     const requestUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=imperial`;
-    let dataDisplay = document.getElementById('weather-container');
+    
 
-    fetch(requestUrl)
+    fetch(requestUrl)/*  */
       .then(function (response) {
         return response.json();
       })
@@ -113,7 +112,7 @@ $(document).ready(function () {
         var displayTemp = document.getElementById('display-temp');
         var displayWind = document.getElementById('display-wind');
         var displayHumidity = document.getElementById('display-humidity');
-        displayTitle.textContent = data.name + '   ' + new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(data.dt * 1000));
+        displayTitle.textContent = data.name + ',   ' + new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(data.dt * 1000));
         displayTemp.textContent = 'Temperature:  ' + data.main.temp + ' \u00B0F';
         displayWind.textContent = 'Wind:  ' + data.wind.speed + ' MPH';
         displayHumidity.textContent = 'Humidity:  ' + data.main.humidity + ' %';
@@ -148,9 +147,6 @@ $(document).ready(function () {
             displayTemp.textContent = `${forecast.main.temp_max} \u00B0F`;
             displayWind.textContent = `Wind: ${forecast.wind.speed} MPH`;
             displayHumidity.textContent = `Humidity: ${forecast.main.humidity}%`;
-
-
-
           }
 
 
