@@ -61,7 +61,7 @@ $(document).ready(function () {
 
 
 
-  //event listener for button and input box.  This event listener might be redundant but it never broke anything so here we are. It also clears the input box.  I might be able to add the arguments to the previous event listener but because it works I am not going to risk breaking it. This function won't let an invalid city input go through to the fetch function and returns a message to the console.
+  //event listener for button and input box.  This event listener might be redundant but it //never broke anything so here we are. It also clears the input box.  I might be able to add //the arguments to the previous event listener but because it works I am not going to //risk breaking it. This function won't let an invalid city input go through to the fetch //function and returns a message to the console.
   const searchButton = document.getElementById("search-button");
   const searchInput = document.querySelector("#search-container input");
   const cityNameInput = document.getElementById('cityNameInput');
@@ -83,7 +83,7 @@ $(document).ready(function () {
     }
   })
 
-  // This is the first API fetch function.  It talks to the API, jsons the response, then pulls variables for lat and lon to be used to call the forecast function.  Then it takes the returned data and puts in into the hard coded HTML elements with the appropriate information.
+  // This is the first API fetch function.  It talks to the API, jsons the response, then //pulls variables for lat and lon to be used to call the forecast function.  Then it takes //the returned data and puts in into the hard coded HTML elements with the appropriate //information.
   function fetchWeatherData(cityName) {
     const apiKey = '7dfcee8991fd1edc7b57c5df746b672b';
     const requestUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=imperial`;
@@ -116,7 +116,7 @@ $(document).ready(function () {
         displayHumidity.textContent = 'Humidity:  ' + data.main.humidity + ' %';
       });
 
-    // This is the forecast fetch function.  It talks to the OpenWeather forecast API which requires forecasts be pulled by lat and lon instead of city name.  So I had to use the lat an long variables from the last function to call this one.  After that it does almost the same thing, except this time the API response was in a gigantic array that I had to pluck from.
+    // This is the forecast fetch function.  It talks to the OpenWeather forecast API which //requires forecasts be pulled by lat and lon instead of city name.  So I had to use the //lat an long variables from the last function to call this one.  After that it does almost //the same thing, except this time the API response was in a gigantic array that I //had to pluck from.
     function fetchForecast(lat, lon) {
       const apiKey = '7dfcee8991fd1edc7b57c5df746b672b';
       const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`;
@@ -157,8 +157,8 @@ $(document).ready(function () {
   }
   // window.onload = function () {
   //   localStorage.clear();
-    displayPastSearches();
+  displayPastSearches();
 
-    ;
-  }
+  ;
+}
 )
