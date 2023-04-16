@@ -1,7 +1,12 @@
 $(document).ready(function () {
 
 
-  // This function is taking data from local storage that already exists, perhaps from a previous time the app was used, and displays those values as buttons that will execute another API fetch.  I didn't want the past search list to get ridiculous so I limited past searches to 6.  What I couldn't figure out was how to replace the oldest searched city instead of the most recent.  As it stands now once the list gets 6 long the last one is just replaced over and over.
+  // This function is taking data from local storage that already exists, perhaps from a 
+  //previous time the app was used, and displays those values as buttons that will execute 
+  //another API fetch.  I didn't want the past search list to get ridiculous so I limited past 
+  //searches to 6.  What I couldn't figure out was how to replace the oldest searched 
+  //city instead of the most recent.  As it stands now once the list gets 6 long the last one 
+  //is just replaced over and over.
   function displayPastSearches() {
     const pastSearchKeys = [];
     for (let i = 0; i < localStorage.length; i++) {
@@ -18,7 +23,9 @@ $(document).ready(function () {
     }
   }
 
-  //This function takes the search box input, saves it to local storage, and then calls the function that creates buttons based on past searches using the parameter that we set with our cityName variable
+  //This function takes the search box input, saves it to local storage, and then calls the 
+  //function that creates buttons based on past searches using the parameter that we set with 
+  //our cityName variable
   function saveAndDisplaySearch(input) {
     const cityName = input.value;
     const maxSearches = 6;
@@ -43,7 +50,10 @@ $(document).ready(function () {
 
 
 
-  // This function is taking the same cityName variable taken from 3 different sources depending on how it is called.  It then creates the button dynamically with classes, an ID, and styles.  Then it adds an event listener to that button that calls the fetch functions on click.
+  // This function is taking the same cityName variable taken from 3 different sources 
+  //depending on how it is called.  It then creates the button dynamically with classes, an ID, 
+  //and styles.  Then it adds an event listener to that button that calls the fetch 
+  //functions on click.
   function displaySearchButton(cityName) {
     const pastSearchContainer = document.getElementById("past-search");
     const searchButton = document.createElement("button");
@@ -61,7 +71,11 @@ $(document).ready(function () {
 
 
 
-  //event listener for button and input box.  This event listener might be redundant but it //never broke anything so here we are. It also clears the input box.  I might be able to add //the arguments to the previous event listener but because it works I am not going to //risk breaking it. This function won't let an invalid city input go through to the fetch //function and returns a message to the console.
+  //event listener for button and input box.  This event listener might be redundant but it 
+  //never broke anything so here we are. It also clears the input box.  I might be able to add 
+  //the arguments to the previous event listener but because it works I am not going to 
+  //risk breaking it. This function won't let an invalid city input go through to the fetch 
+  //function and returns a message to the console.
   const searchButton = document.getElementById("search-button");
   const searchInput = document.querySelector("#search-container input");
   const cityNameInput = document.getElementById('cityNameInput');
@@ -83,7 +97,10 @@ $(document).ready(function () {
     }
   })
 
-  // This is the first API fetch function.  It talks to the API, jsons the response, then //pulls variables for lat and lon to be used to call the forecast function.  Then it takes //the returned data and puts in into the hard coded HTML elements with the appropriate //information.
+  // This is the first API fetch function.  It talks to the API, jsons the response, then 
+  //pulls variables for lat and lon to be used to call the forecast function.  Then it takes 
+  //the returned data and puts in into the hard coded HTML elements with the appropriate 
+  //information.
   function fetchWeatherData(cityName) {
     const apiKey = '7dfcee8991fd1edc7b57c5df746b672b';
     const requestUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=imperial`;
@@ -116,7 +133,11 @@ $(document).ready(function () {
         displayHumidity.textContent = 'Humidity:  ' + data.main.humidity + ' %';
       });
 
-    // This is the forecast fetch function.  It talks to the OpenWeather forecast API which //requires forecasts be pulled by lat and lon instead of city name.  So I had to use the //lat an long variables from the last function to call this one.  After that it does almost //the same thing, except this time the API response was in a gigantic array that I //had to pluck from.
+    // This is the forecast fetch function.  It talks to the OpenWeather forecast API which 
+    //requires forecasts be pulled by lat and lon instead of city name.  So I had to use the 
+    //lat an long variables from the last function to call this one.  After that it does almost 
+    //the same thing, except this time the API response was in a gigantic array that I 
+    //had to pluck from.
     function fetchForecast(lat, lon) {
       const apiKey = '7dfcee8991fd1edc7b57c5df746b672b';
       const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=imperial`;
