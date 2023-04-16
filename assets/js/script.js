@@ -62,6 +62,7 @@ $(document).ready(function () {
     searchButton.classList.add("btn", "btn-outline-secondary", "mb-2", "btn-primary");
     searchButton.setAttribute("data-city-name", cityName);
     searchButton.setAttribute('id', 'search-buttons');
+    searchButton.style.textAlign = 'center';
     searchButton.addEventListener("click", function () {
       fetchWeatherData(cityName);
 
@@ -88,6 +89,7 @@ $(document).ready(function () {
     if (cityName) {
       saveAndDisplaySearch(searchInput);
       fetchWeatherData(cityName);
+      searchInput.value = '';
 
     }
   })
@@ -108,11 +110,18 @@ $(document).ready(function () {
         const lon = data.coord.lon;
         console.log(lat, lon);
         fetchForecast(lat, lon);
+        const displayContainer = document.getElementById('data-container');
         var displayTitle = document.getElementById('display-title');
+        var displayIcon = document.getElementById('weather-icon');
         var displayTemp = document.getElementById('display-temp');
         var displayWind = document.getElementById('display-wind');
         var displayHumidity = document.getElementById('display-humidity');
+        const iconUrl = `https://openweathermap.org/img/wn/${data.weather[0].icon}.png`;
         displayTitle.textContent = data.name + ',   ' + new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(data.dt * 1000));
+        displayIcon.src = iconUrl;
+        displayIcon.addEventListener('load', function () {
+          displayContainer.style.display = 'block';
+        });
         displayTemp.textContent = 'Temperature:  ' + data.main.temp + ' \u00B0F';
         displayWind.textContent = 'Wind:  ' + data.wind.speed + ' MPH';
         displayHumidity.textContent = 'Humidity:  ' + data.main.humidity + ' %';
@@ -144,6 +153,9 @@ $(document).ready(function () {
 
             displayTitle.textContent = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(forecast.dt * 1000));
             displayIcon.src = iconUrl;
+            displayIcon.addEventListener('load', function () {
+              displayIcon.style.display = 'block';
+            });
             displayTemp.textContent = `${forecast.main.temp_max} \u00B0F`;
             displayWind.textContent = `Wind: ${forecast.wind.speed} MPH`;
             displayHumidity.textContent = `Humidity: ${forecast.main.humidity}%`;

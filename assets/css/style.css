@@ -29,6 +29,10 @@ header, #search-container, #data-container {
   border: 1px solid #ccc;
 }
 
+#search-container button {
+  margin-top: .5rem;
+}
+
 
 #weather-container {
   min-height: 12vw;
@@ -88,6 +92,18 @@ img[id*="forecast-icon"] {
 #search-buttons {
   border: 1px solid #ccc;
   color: white;
+  min-width: 10rem;
+}
+
+#weather-icon {
+  float: right;
+  width: 8rem;
+  height: 7rem;
+}
+
+
+#data-container {
+  display: none;
 }
 
 
